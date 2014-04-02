@@ -1,0 +1,86 @@
+var thunkify = require('thunkify');
+var crypto = require('crypto');
+
+var randomBytes = thunkify(crypto.randomBytes);
+var pbkdf2      = thunkify(crypto.pbkdf2);
+
+module.exports = auth;
+
+var _MODULE_DEFAULTS = {
+	encoding:        'base64'
+	, iterations:    1000
+	, output_length: 20
+	, salt_length:   20
+};
+Object.freeze(_MODULE_DEFAULTS);
+
+function auth (config) {
+	//if ( !(this instanceof auth) ) {
+	if ( this === global ) {
+		//throw new Error('Constructor called without new');
+		return new auth();
+	}
+
+	if ( config && config.constructor == Object ) {
+		Object.setPrototypeOf(config, _MODULE_DEFAULTS);
+		this.config = config;
+	}
+	else {
+		this.config = Object.create(_MODULE_DEFAULTS);
+	}
+
+	return this;
+}
+
+auth.prototype.generateSaltedHash = auth.generateSaltedHash = function * (password, salt) {
+	var config;
+	if ( !(config=this.config) ) {
+		config = _MODULE_DEFAULTS
+	}
+
+	if ( password === undefined || password.constructor !== String ) {
+		throw new Error("Function must invoked without a string 'password'");
+	}
+
+	if ( salt === undefined ) {
+		salt = yield randomBytes(config.salt_length);
+	}
+	var hash = yield pbkdf2(
+		password
+		, salt
+		, config.iterations
+		, config.output_length
+	);
+
+	var m = new Map();
+	m.set('hash', hash.toString(config.encoding) );
+	m.set('salt', salt.toString(config.encoding) );
+
+	return m;
+};
+
+auth.prototype.validatePassword = auth.validatePassword = function * (password, salt, hash_provided) {
+	var config;
+	if ( !(config=this.config) ) {
+		config = _MODULE_DEFAULTS
+	}
+
+	if (
+		( password === undefined || password.constructor !== String )
+		|| salt === undefined
+		|| hash_provided == undefined
+	) {
+		throw new Error("Function requires three arguments: string 'password', buffer 'salt', and buffer 'hash_provided'");
+	}
+
+	var _buffer_salt = new Buffer( salt, config.encoding );
+
+	var hash_generated = yield pbkdf2(
+		password
+		, _buffer_salt
+		, config.iterations
+		, config.output_length
+	);
+
+	return hash_generated.toString(config.encoding) === hash_provided;
+};
