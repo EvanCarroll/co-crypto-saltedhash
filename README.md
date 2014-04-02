@@ -15,13 +15,13 @@ SYNOPSIS
 
 	// most basic syntax
 	var auth = require('co-crypto-saltedhash');
-	var m = auth.generatedSaltedHash('password');
+	var m = yield auth.generatedSaltedHash('password');
 	console.log(
 		m.get('salt')
 		, m.get('hash')
 	);
 	
-	auth.validatePassword(
+	var authenticated = yield auth.validatePassword(
 		'password'
 		, m.get('salt') // just strings
 		, m.get('hash') // can come from anywhere
