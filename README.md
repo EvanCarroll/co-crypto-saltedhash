@@ -23,8 +23,8 @@ SYNOPSIS
 	
 	auth.validatePassword(
 		'password'
-		, m.get('salt')
-		, m.get('hash')
+		, m.get('salt') // just strings
+		, m.get('hash') // can come from anywhere
 	);
 
 	// here we override a default configuration item: 'iterations'
@@ -53,12 +53,12 @@ DEFAULTS
 
 If porting to another language, the defaults used in this module are,
 
-| NAME          | DEFAULT  |
-| ------------- |--------- |
-| encoding      | 'base64' |
-| iterations    | 1000     |
-| output_length | 20       |
-| salt_length   | 20       |
+| NAME          | DEFAULT  | TYPE   |
+| ------------- |--------- |--------|
+| encoding      | 'base64' | String |
+| iterations    | 1000     | Int    |
+| output_length | 20       | Int    |
+| salt_length   | 20       | Int    |
 
 AUTHOR
 ------
