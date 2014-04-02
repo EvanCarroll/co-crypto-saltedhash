@@ -37,13 +37,13 @@ SYNOPSIS
 GENERATOR FUNCTIONS
 -------------------
 
-* generateSaltedHash( password, [salt] )
+* `generateSaltedHash( password, [salt] )`
 
 Generates a salted hash of length 'output_length' using the optionally provided
 'salt'. If no salt is provided it generates a salt of the byte size set in
 'salt_length'. Iterations are configurable in the constructor.
 
-* validatePassword( password, salt, salted_hash );
+* `validatePassword( password, salt, salted_hash )`
 
 Generates a new salted hash using provided password and salt. Compares result
 to salted_hash and returns true or false.
