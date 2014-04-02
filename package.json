@@ -1,0 +1,28 @@
+{
+  "name": "co-crypt-saltedhash",
+  "version": "0.0.0",
+  "description": "An ES6 library to ease saltedhash generation and validation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/EvanCarroll/co-crypt-saltedhash.git"
+  },
+  "keywords": [
+    "co",
+    "es6",
+    "salt",
+    "password",
+    "hash",
+    "saltedhash",
+    "pbkdf2"
+  ],
+  "author": "Evan Carroll",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EvanCarroll/co-crypt-saltedhash/issues"
+  },
+  "homepage": "https://github.com/EvanCarroll/co-crypt-saltedhash"
+}

@@ -15,10 +15,10 @@ var _MODULE_DEFAULTS = {
 Object.freeze(_MODULE_DEFAULTS);
 
 function auth (config) {
-	//if ( !(this instanceof auth) ) {
-	if ( this === global ) {
+	if ( !(this instanceof auth) ) {
+	//if ( this === global ) {
 		//throw new Error('Constructor called without new');
-		return new auth();
+		return new auth(config);
 	}
 
 	if ( config && config.constructor == Object ) {
@@ -31,6 +31,8 @@ function auth (config) {
 
 	return this;
 }
+
+auth.prototype.config = _MODULE_DEFAULTS;
 
 auth.prototype.generateSaltedHash = auth.generateSaltedHash = function * (password, salt) {
 	var config;
@@ -75,12 +77,7 @@ auth.prototype.validatePassword = auth.validatePassword = function * (password, 
 
 	var _buffer_salt = new Buffer( salt, config.encoding );
 
-	var hash_generated = yield pbkdf2(
-		password
-		, _buffer_salt
-		, config.iterations
-		, config.output_length
-	);
-
-	return hash_generated.toString(config.encoding) === hash_provided;
+	var m = yield this.generateSaltedHash( password, _buffer_salt );
+	return m.get('hash') === hash_provided;
 };
+
