@@ -4,7 +4,7 @@
   "description": "An ES6 library to ease saltedhash generation and validation",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --harmony ./test/test.js"
   },
   "repository": {
     "type": "git",
@@ -27,5 +27,9 @@
   "homepage": "https://github.com/EvanCarroll/co-crypto-saltedhash",
   "dependencies": {
     "thunkify": "0.0.1"
-  }
+  },
+  "devDependencies": {
+    "co": "^3.0.5"
+  },
+  "engines": { "node" : ">=0.10.0" }
 }
