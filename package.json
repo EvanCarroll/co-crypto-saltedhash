@@ -1,5 +1,5 @@
 {
-  "name": "co-crypt-saltedhash",
+  "name": "co-crypto-saltedhash",
   "version": "0.0.1",
   "description": "An ES6 library to ease saltedhash generation and validation",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/EvanCarroll/co-crypt-saltedhash.git"
+    "url": "git://github.com/EvanCarroll/co-crypto-saltedhash.git"
   },
   "keywords": [
     "co",
@@ -22,9 +22,9 @@
   "author": "Evan Carroll",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/EvanCarroll/co-crypt-saltedhash/issues"
+    "url": "https://github.com/EvanCarroll/co-crypto-saltedhash/issues"
   },
-  "homepage": "https://github.com/EvanCarroll/co-crypt-saltedhash",
+  "homepage": "https://github.com/EvanCarroll/co-crypto-saltedhash",
   "dependencies": {
     "thunkify": "0.0.1"
   }
