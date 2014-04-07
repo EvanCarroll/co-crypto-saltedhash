@@ -19,6 +19,7 @@ SYNOPSIS
 	console.log(
 		m.get('salt')
 		, m.get('hash')
+		, m.get('iterations')
 	);
 	
 	var authenticated = yield auth.validatePassword(
@@ -56,7 +57,7 @@ If porting to another language, the defaults used in this module are,
 | NAME          | DEFAULT  | TYPE   |
 | ------------- |--------- |--------|
 | encoding      | 'base64' | String |
-| iterations    | 1000     | Int    |
+| iterations    | 100000   | Int    |
 | output_length | 20       | Int    |
 | salt_length   | 20       | Int    |
 

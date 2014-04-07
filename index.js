@@ -8,7 +8,7 @@ module.exports = auth;
 
 var _MODULE_DEFAULTS = {
 	encoding:        'base64'
-	, iterations:    1000
+	, iterations:    100000
 	, output_length: 20
 	, salt_length:   20
 };
@@ -55,8 +55,9 @@ auth.prototype.generateSaltedHash = auth.generateSaltedHash = function * (passwo
 	);
 
 	var m = new Map();
-	m.set('hash', hash.toString(config.encoding) );
-	m.set('salt', salt.toString(config.encoding) );
+	m.set('hash',       hash.toString(config.encoding) );
+	m.set('salt',       salt.toString(config.encoding) );
+	m.set('iterations', config.iterations );
 
 	return m;
 };
@@ -78,6 +79,23 @@ auth.prototype.validatePassword = auth.validatePassword = function * (password, 
 	var _buffer_salt = new Buffer( salt, config.encoding );
 
 	var m = yield this.generateSaltedHash( password, _buffer_salt );
-	return m.get('hash') === hash_provided;
+	return constantEquals( m.get('hash'), hash_provided );
 };
 
+
+//
+// Helper Functions
+//
+
+function constantEquals(x, y) {
+	"use strict";
+	var result = true,
+	length = (x.length > y.length) ? x.length : y.length;
+
+	for (let i=0; i<length; i++) {
+		if (x.charCodeAt(i) !== y.charCodeAt(i)) {
+			result = false;
+		}
+	}
+	return result;
+};
